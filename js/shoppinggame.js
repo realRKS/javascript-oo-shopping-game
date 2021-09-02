@@ -7,7 +7,7 @@ let gameComplete = false;
 
 // Complete the dateDiff function
 
-class Player{
+class player{
 
     constructor(){
         this.name='unkown';
