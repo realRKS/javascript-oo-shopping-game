@@ -7,19 +7,19 @@ let gameComplete = false;
 
 // Complete the dateDiff function
 
-class player{
-
-    constructor(){
-        this.name='unkown';
-        this.score=0;
-        this.items=0;
-    }
+const name = "unknown";
+const score=0;
+const items=0;
+let person={
+    name,
+    score,
+    items,
     getCurrentScore(){
         return this.score;
-    }
+    },
     addPoints(points){
         this.score+=points;
-    }
+    },
     deductPoints(points){
         this.score-=points;
     }
@@ -45,7 +45,7 @@ const dateDiff = (date1, date2) => {
 
 // Here, use Object.defineProperty to create property - daysToExpire
 Object.defineProperty(Product.prototype,'datetoExpire',{
-    get(){ return dateDiff(this.expiryDate,new Date()) }
+    get: function() { return dateDiff(this.expiryDate,new Date()) }
 });
 
 // Add method getDetails to Product here
@@ -57,7 +57,7 @@ Product.prototype= function getDetails(){
 class MagicProduct extends Product{
 
     MagicProduct(id,name , price , expiryDate, points, isBonus){
-        Product.prototype.call(this,id , name , price , expiryDate );
+        Product.call(this,id , name , price , expiryDate );
         this.points= points;
         this.isBonus=isBonus;
     }
