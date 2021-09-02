@@ -10,7 +10,7 @@ let gameComplete = false;
 const name = "unknown";
 const score=0;
 const items=0;
-let person={
+let player={
     name,
     score,
     items,
