@@ -26,14 +26,14 @@ let player={
 
 }
 
-class Product{
-    constructor(id, name, price, expiryDate){
+function Product(id, name, price, expiryDate){
+    
         this.id=id;
         this.name=name;
         this.price=price;
         this.expiryDate=expiryDate;
 
-    }
+    
 
 }
 
@@ -45,22 +45,21 @@ const dateDiff = (date1, date2) => {
 
 // Here, use Object.defineProperty to create property - daysToExpire
 Object.defineProperty(Product.prototype,'datetoExpire',{
-    get: function() { return dateDiff(this.expiryDate,new Date()) }
+    get: function() { return dateDiff(this.expiryDate,new Date()); }
 });
 
 // Add method getDetails to Product here
-Product.prototype= function getDetails(){
+Product.prototype.getDetails = function(){
     return `Product Name: ${this.name} , Product Price: ${this.price}`;
 };
 
 // Define the MagicProduct class here
-class MagicProduct extends Product{
+function MagicProduct(id,name , price , expiryDate, points, isBonus){
 
-    MagicProduct(id,name , price , expiryDate, points, isBonus){
-        Product.call(this,id , name , price , expiryDate );
-        this.points= points;
-        this.isBonus=isBonus;
-    }
+    Product.call(this,id , name , price , expiryDate );
+    this.points= points;
+    this.isBonus=isBonus;
+    
 }
 
 // Establish inheritance between Product() & MagicProduct() here
@@ -72,7 +71,7 @@ MagicProduct.prototype=product;
 class Rating{
 
     constructor(){
-        rate="";
+        this.rate="";
     }
     set rating(value){
         if(value > 1 && value <= 4)
