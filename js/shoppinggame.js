@@ -6,17 +6,85 @@ let gameComplete = false;
 // Define the Product class - write the Constructor function for Product class here
 
 // Complete the dateDiff function
-const dateDiff = (date1, date2) => {};
+
+class Player{
+
+    constructor(){
+        this.name='unkown';
+        this.score=0;
+        this.items=0;
+    }
+    getCurrentScore(){
+        return this.score;
+    }
+    addPoints(points){
+        this.score+=points;
+    }
+    deductPoints(points){
+        this.score-=points;
+    }
+
+}
+
+class Product{
+    constructor(id, name, price, expiryDate){
+        this.id=id;
+        this.name=name;
+        this.price=price;
+        this.expiryDate=expiryDate;
+
+    }
+
+}
+
+
+const dateDiff = (date1, date2) => {
+    const diffTime = Math.abs(date2 - date1);
+    return (Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+};
 
 // Here, use Object.defineProperty to create property - daysToExpire
+Object.defineProperty(Product.prototype,'datetoExpire',{
+    get(){ return dateDiff(this.expiryDate,new Date()) }
+});
 
 // Add method getDetails to Product here
+Product.prototype= function getDetails(){
+    return `Product Name: ${this.name} , Product Price: ${this.price}`;
+};
 
 // Define the MagicProduct class here
+class MagicProduct extends Product{
+
+    MagicProduct(id,name , price , expiryDate, points, isBonus){
+        Product.prototype.call(this,id , name , price , expiryDate );
+        this.points= points;
+        this.isBonus=isBonus;
+    }
+}
 
 // Establish inheritance between Product() & MagicProduct() here
+var product= Object.create(Product.prototype);
+MagicProduct.prototype=product;
 
 // Define Rating class here
+
+class Rating{
+
+    constructor(){
+        rate="";
+    }
+    set rating(value){
+        if(value > 1 && value <= 4)
+            rate="OK";
+        else if(value >= 5 && value <= 7)
+            rate="GOOD";
+        else if(value > 7)
+            rate="EXCEPTIONAL";
+        else   
+            rate="BAD";
+    }
+}
 
 // Complete the loadProducts function
 const loadProducts = (map, prodId) => {
@@ -307,9 +375,9 @@ function init(data) {
     };
 
     // Uncomment this function once you fully implement the game to be able to run it
-    // (function setGameCompleteFlag(){
-    //     gameComplete = true;
-    // })();
+    (function setGameCompleteFlag(){
+        gameComplete = true;
+    })();
 
     function main() {
         let products = loadMasterData();
